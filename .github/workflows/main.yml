@@ -1,0 +1,29 @@
+# .github/workflows/main.yml
+
+name: Deploy to Render
+
+on:
+  push:
+    branches:
+      - main  # أي تحديث على فرع main يطلق النشر
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔍 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🧰 Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'  # تأكد أنها نفس نسخة مشروعك
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🚀 Deploy to Render
+        env:
+          RENDER_TOKEN: ${{ secrets.RENDER_TOKEN }}
+        
